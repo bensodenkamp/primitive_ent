@@ -23,7 +23,7 @@ jobs:
       run: go test -v ./...
       
     - name: Format
-      run: if [[ $(go fmt ./...) ]]; then exit -1 fi
+      run: if [[ $(go fmt ./...) ]]; then exit -1; fi
     
     - name: Vet
       run: go vet -set-exit-status ./...
