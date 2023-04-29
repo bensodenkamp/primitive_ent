@@ -1,0 +1,26 @@
+name: Build
+
+# on events
+on:
+  release:
+    types: 
+        - created
+
+# workflow tasks
+jobs:
+  validate:
+    uses: ./.github/workflows/validate.yml
+  generate:
+    name: Generate cross-platform builds
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout the repository
+        uses: actions/checkout@v2
+      - name: Generate build files
+        uses: thatisuday/go-cross-build@v1.1.0
+        with:
+            platforms: 'linux/amd64, darwin/amd64, windows/amd64'
+            package: 'primitive'
+            name: 'primitive_ent'
+            compress: 'true'
+            dest: 'dist'
