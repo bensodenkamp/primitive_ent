@@ -17,7 +17,6 @@ jobs:
         uses: thatisuday/go-cross-build@v1.1.0
         with:
             platforms: 'linux/amd64, darwin/amd64, windows/amd64'
-            package: 'primitive'
             name: 'primitive_ent'
             compress: 'true'
             dest: 'dist'
