@@ -240,5 +240,4 @@ func main() {
 			}
 		}
 	}
-	fmt.Printf("Test Value: %s", frame)
 }
