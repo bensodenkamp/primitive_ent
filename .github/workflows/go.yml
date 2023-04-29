@@ -1,7 +1,7 @@
 # This workflow will build a golang project
 # For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-go
 
-name: Go
+name: Validate
 
 on:
   push:
@@ -23,14 +23,14 @@ jobs:
       run: go test -v ./...
       
     - name: Format
-      run: go fmt ./...
+      run: if [[ $(go fmt ./...) ]]; then exit -1 fi
     
     - name: Vet
-      run: go vet ./...
+      run: go vet -set-exit-status ./...
       
     - name: setup Lint
       run: go install golang.org/x/lint/golint
       
     - name: Lint
-      run: golint ./...
+      run: golint -set-exit-status ./...
       
