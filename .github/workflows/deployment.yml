@@ -28,5 +28,5 @@ jobs:
 
       - uses: osiegmar/s3-publisher-action@v1
         with:
-          bucket: primitive=ent-deploy
+          bucket: primitive-ent-deploy
           dir: dist
