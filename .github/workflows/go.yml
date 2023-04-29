@@ -23,7 +23,7 @@ jobs:
       run: go test -v ./...
       
     - name: Format
-      run: if [[ $(go fmt ./...) ]]; then exit -1; fi
+      run: export OUTPUT=`go fmt ./...`;if [[ $OUTPUT ]]; then echo $OUTPUT; exit -1; fi
     
     - name: Vet
       run: if [[ $(go vet ./...) ]]; then exit -1; fi
