@@ -37,8 +37,14 @@ type runable interface {
 // alias downstream functions to enable mocking for unit test
 var osStdin = func() io.Reader { return os.Stdin }
 var osStdout = func() io.Writer { return os.Stdout }
-var osOpen = func(p string) (closableReader, error) { return os.Open(p) }
-var osCreate = func(p string) (closableWriter, error) { return os.Create(p) }
+var osOpen = func(p string) (closableReader, error) {
+	filepath.Clean(p)
+	return os.Open(p)
+}
+var osCreate = func(p string) (closableWriter, error) {
+	filepath.Clean(p)
+	return os.Create(p)
+}
 var execCommand = func(cmd string, arg ...string) runable { return exec.Command(cmd, arg...) }
 var pngEncode = png.Encode
 
