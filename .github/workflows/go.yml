@@ -26,7 +26,7 @@ jobs:
       run: export OUTPUT=`go fmt ./...`;if [[ $OUTPUT ]]; then echo $OUTPUT; exit -1; fi
     
     - name: Vet
-      run: if [[ $(go vet ./...) ]]; then exit -1; fi
+      run: export OUTPUT=`go vet ./...`;if [[ $OUTPUT ]]; then echo $OUTPUT; exit -1; fi
       
     - name: setup Lint
       run: go install golang.org/x/lint/golint
