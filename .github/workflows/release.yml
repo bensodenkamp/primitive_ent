@@ -1,0 +1,31 @@
+name: Release
+  
+on: 
+  workflow_dispatch:
+  release:
+    types: 
+    - created
+
+jobs:
+    build:
+      uses: ./.github/workflows/build.yml
+
+    deploy:
+      runs-on: ubuntu-latest
+      permissions:
+        id-token: write
+        contents: read
+
+      steps:
+      - uses: actions/checkout@v3
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          role-to-assume: arn:aws:iam::547133781393:role/primitive-ent-deployer
+          aws-region: us-east-1
+
+      - uses: osiegmar/s3-publisher-action@v1
+        with:
+          bucket: primitive=ent-deploy
+          dir: dist
