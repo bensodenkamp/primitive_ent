@@ -86,7 +86,6 @@ func TestMakeHexColor(t *testing.T) {
 
 	for _, testcase := range cases {
 		color := MakeHexColor(testcase.hexstr)
-		fmt.Println(fmt.Sprintf("color obj: %v", color))
 		if color.R != testcase.r ||
 			color.G != testcase.g ||
 			color.B != testcase.b ||
