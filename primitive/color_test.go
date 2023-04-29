@@ -48,7 +48,7 @@ func TestMakeHexColor(t *testing.T) {
 	// 3 digit hex values: a hex value of a will become aa, which is 170 decimal.
 	// a hex value of 2 will become 22 which is 34 decimal ..etc.
 	// the value of data member a is always 255 if ommited (if ther is no fourth value)
-	cases[0] = hexStrColor{hexstr: "#aaa", r: 169, g: 170, b: 170, a: 255}
+	cases[0] = hexStrColor{hexstr: "#aaa", r: 170, g: 170, b: 170, a: 255}
 	cases[1] = hexStrColor{hexstr: "bc3", r: 187, g: 204, b: 51, a: 255}
 	cases[2] = hexStrColor{hexstr: "fff", r: 255, g: 255, b: 255, a: 255}
 	cases[3] = hexStrColor{hexstr: "#fff", r: 255, g: 255, b: 255, a: 255}
@@ -86,6 +86,7 @@ func TestMakeHexColor(t *testing.T) {
 
 	for _, testcase := range cases {
 		color := MakeHexColor(testcase.hexstr)
+		fmt.Println(fmt.Sprintf("color obj: %v", color))
 		if color.R != testcase.r ||
 			color.G != testcase.g ||
 			color.B != testcase.b ||

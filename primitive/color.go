@@ -21,18 +21,14 @@ func MakeColor(c color.Color) Color {
 func MakeHexColor(x string) Color {
 	x = strings.Trim(x, "#")
 	var r, g, b, a int
-	// Default mask is 255. Fall through with all zeros if no cases match
-	r = 0
-	g = 0
-	b = 0
-	a = 0
+	// Default mask is 255.
 	a = 255
 	var err error
 	switch len(x) {
 	case 3:
 		_, err = fmt.Sscanf(x, "%1x%1x%1x", &r, &g, &b)
 		if err != nil {
-			return Color{r, g, b, a}
+			return Color{0, 0, 0, 0}
 		}
 		r = (r << 4) | r
 		g = (g << 4) | g
@@ -40,7 +36,7 @@ func MakeHexColor(x string) Color {
 	case 4:
 		_, err = fmt.Sscanf(x, "%1x%1x%1x%1x", &r, &g, &b, &a)
 		if err != nil {
-			return Color{r, g, b, a}
+			return Color{0, 0, 0, 0}
 		}
 		r = (r << 4) | r
 		g = (g << 4) | g
@@ -49,12 +45,12 @@ func MakeHexColor(x string) Color {
 	case 6:
 		_, err = fmt.Sscanf(x, "%02x%02x%02x", &r, &g, &b)
 		if err != nil {
-			return Color{r, g, b, a}
+			return Color{0, 0, 0, 0}
 		}
 	case 8:
 		_, err = fmt.Sscanf(x, "%02x%02x%02x%02x", &r, &g, &b, &a)
 		if err != nil {
-			return Color{r, g, b, a}
+			return Color{0, 0, 0, 0}
 		}
 	}
 	return Color{r, g, b, a}
