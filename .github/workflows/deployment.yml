@@ -23,7 +23,7 @@ jobs:
             platforms: 'linux/amd64, darwin/amd64, windows/amd64'
             compress: 'true'
             dest: 'dist'
-            name: primitive_ent-$RELEASE_VERSION
+            name: primitive_ent-${{ env.RELEASE_VERSION }}
       - name: Upload deploy artifacts
         uses: actions/upload-artifact@v3
         with:
