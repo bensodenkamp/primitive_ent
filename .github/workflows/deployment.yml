@@ -52,4 +52,4 @@ jobs:
       - uses: osiegmar/s3-publisher-action@v1
         with:
           bucket: my-bucket-name
-          dir: /github/workspace/dist/
+          dir: /
