@@ -46,7 +46,7 @@ jobs:
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v2
         with:
-          role-to-assume: arn:aws:iam::547133781393:role/primitive-ent-deployer
+          role-to-assume: arn:aws:iam::547133781393:role/primitive-ent-deploy-role
           aws-region: us-east-1
 
       - uses: osiegmar/s3-publisher-action@v1
