@@ -27,7 +27,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: deploy-artifacts
-          path: *.gz
+          path: dist
       
   deploy:
     needs: build
