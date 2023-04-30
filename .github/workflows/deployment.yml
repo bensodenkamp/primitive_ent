@@ -38,10 +38,14 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
+      
+      - name: create public dire
+        run: mkdir public; cd public
       - name: Download deploy arrtifacts
         uses: actions/download-artifact@v3
         with:
           name: deploy-artifacts
+          path: public
 
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v2
@@ -52,4 +56,4 @@ jobs:
       - uses: osiegmar/s3-publisher-action@v1
         with:
           bucket: primitive-ent-deployment
-          dir: .
+          dir: public
