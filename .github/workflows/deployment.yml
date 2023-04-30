@@ -1,7 +1,6 @@
 name: Deploy
   
 on: 
-  workflow_dispatch:
   release:
     types: 
     - created
@@ -20,9 +19,9 @@ jobs:
         uses: thatisuday/go-cross-build@v1.1.0
         with:
             platforms: 'linux/amd64, darwin/amd64, windows/amd64'
-            name: 'primitive_ent'
             compress: 'true'
             dest: 'dist'
+            name: "primitive_ent-${GITHUB_REF#refs/*/}"
       - name: Upload deploy artifacts
         uses: actions/upload-artifact@v3
         with:
