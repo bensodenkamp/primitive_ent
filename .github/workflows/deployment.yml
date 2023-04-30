@@ -9,7 +9,7 @@ on:
 jobs:
   validate:
     uses: ./.github/workflows/validate.yml
-  deploy:
+  build:
     needs: validate
     name: Generate cross-platform builds
     runs-on: ubuntu-latest
@@ -23,13 +23,34 @@ jobs:
             name: 'primitive_ent'
             compress: 'true'
             dest: 'dist'
-      - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@v2, actions/checkout@v3
+      - name: Upload deploy artifacts
+        uses: actions/upload-artifact@v3
         with:
-          role-to-assume: arn:aws:iam::547133781393:role/primitive-ent-deployer
-          aws-region: us-east-1
+          name: deploy-artifacts
+          path: /github/workspace/dist/
+      
+  deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
+
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Download deploy arrtifacts
+        uses: actions/download-artifact@v3
+        with:
+          name: deploy-artifacts
+          path: /github/workspace/dist/
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          role-to-assume: arn:aws:iam::XXXXXXXXXXXX:role/github-actions
+          aws-region: eu-central-1
 
       - uses: osiegmar/s3-publisher-action@v1
         with:
-          bucket: primitive-ent-deploy
+          bucket: my-bucket-name
           dir: /github/workspace/dist/
