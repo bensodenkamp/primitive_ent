@@ -27,7 +27,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: deploy-artifacts
-          path: /github/workspace/dist/
+          path: /github/workspace/dist/primitive_ent
       
   deploy:
     needs: build
