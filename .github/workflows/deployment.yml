@@ -15,13 +15,15 @@ jobs:
     steps:
       - name: Checkout the repository
         uses: actions/checkout@v2
+      - name: Set env
+        run: echo "RELEASE_VERSION=${GITHUB_REF#refs/*/}" >> $GITHUB_ENV
       - name: Generate build files
         uses: thatisuday/go-cross-build@v1.1.0
         with:
             platforms: 'linux/amd64, darwin/amd64, windows/amd64'
             compress: 'true'
             dest: 'dist'
-            name: primitive_ent-${{ GITHUB_REF#refs/*/ }}
+            name: primitive_ent-$RELEASE_VERSION
       - name: Upload deploy artifacts
         uses: actions/upload-artifact@v3
         with:
@@ -37,8 +39,7 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
-      
-      - name: create public dire
+      - name: create public dir
         run: mkdir public; cd public
       - name: Download deploy arrtifacts
         uses: actions/download-artifact@v3
