@@ -70,7 +70,7 @@ jobs:
           path: /github/workspace/dist/
 
       - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@v2
+        uses: aws-actions/configure-aws-credentials@v2, actions/checkout@v3
         with:
           role-to-assume: arn:aws:iam::547133781393:role/primitive-ent-deployer
           aws-region: us-east-1
