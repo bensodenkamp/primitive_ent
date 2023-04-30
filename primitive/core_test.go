@@ -98,5 +98,4 @@ func TestDifferencePartial(t *testing.T) {
 	if intResult != 9996133 {
 		t.Error(fmt.Sprintf("Bad result for DifferenceFull: %d", intResult))
 	}
-
 }
