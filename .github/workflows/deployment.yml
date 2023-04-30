@@ -7,26 +7,39 @@ on:
     - created
 
 jobs:
-    build:
-      uses: ./.github/workflows/build.yml
-
-    deploy:
-      needs: build
-      runs-on: ubuntu-latest
-      permissions:
-        id-token: write
-        contents: read
-
-      steps:
-      - uses: actions/checkout@v3
-
-      - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@v2
+  validate:
+    uses: ./.github/workflows/validate.yml
+  build:
+    needs: validate
+    name: Generate cross-platform builds
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout the repository
+        uses: actions/checkout@v2
+      - name: Generate build files
+        uses: thatisuday/go-cross-build@v1.1.0
         with:
-          role-to-assume: arn:aws:iam::547133781393:role/primitive-ent-deployer
-          aws-region: us-east-1
+            platforms: 'linux/amd64, darwin/amd64, windows/amd64'
+            name: 'primitive_ent'
+            compress: 'true'
+            dest: 'dist'
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
 
-      - uses: osiegmar/s3-publisher-action@v1
-        with:
-          bucket: primitive-ent-deploy
-          dir: /github/workspace/dist/
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Configure AWS credentials
+      uses: aws-actions/configure-aws-credentials@v2
+      with:
+        role-to-assume: arn:aws:iam::547133781393:role/primitive-ent-deployer
+        aws-region: us-east-1
+
+    - uses: osiegmar/s3-publisher-action@v1
+      with:
+        bucket: primitive-ent-deploy
+        dir: /github/workspace/dist/
