@@ -38,7 +38,6 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
-      
       - name: Download deploy arrtifacts
         uses: actions/download-artifact@v3
         with:
