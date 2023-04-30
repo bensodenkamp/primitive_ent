@@ -27,7 +27,6 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: deploy-artifacts
-          path: /github/workspace/dist/primitive_ent
       
   deploy:
     needs: build
@@ -43,7 +42,6 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: deploy-artifacts
-          path: /github/workspace/dist/
 
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v2
