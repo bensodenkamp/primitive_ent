@@ -240,4 +240,5 @@ func main() {
 			}
 		}
 	}
+	fmt.Println("I'm v0.0.6!")
 }
