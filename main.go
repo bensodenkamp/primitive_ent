@@ -146,6 +146,7 @@ func main() {
 	if !ok {
 		fmt.Println("Usage: primitive [OPTIONS] -i input -o output -n count")
 		flag.PrintDefaults()
+		fmt.Println("I'm running v0.0.7!")
 		os.Exit(1)
 	}
 
@@ -240,5 +241,4 @@ func main() {
 			}
 		}
 	}
-	fmt.Println("I'm v0.0.6!")
 }

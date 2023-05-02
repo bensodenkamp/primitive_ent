@@ -38,7 +38,6 @@ jobs:
       contents: read
 
     steps:
-      - uses: actions/checkout@v3
       - name: create public dir
         run: mkdir public; cd public
       - name: Download deploy arrtifacts
